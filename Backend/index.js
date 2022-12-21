@@ -1,3 +1,12 @@
+let listWork = []
+console.log(listWork)
+
+let listCategorie =[]
+console.log(listCategorie)
+
+const elt = document.getElementsByName('button')
+console.log(elt[0])
+
 fetch ("http://localhost:5678/api/works")
     .then(res =>{
         if (res.ok){
@@ -9,21 +18,28 @@ fetch ("http://localhost:5678/api/works")
        
     .then(works => {
         for (let work of works) {
-            displayWork(work) 
+            if ( listCategorie.id === work.categoryId) {
+                
+                displayWork()
+            } else {
+                ''
+            }
+            listWork.push(work)                      
         }    
     })
+
     .catch(error => {
         alert(error)
     })
 
 
+
 function displayWork(work) {
-    const gallery = document.getElementById("gallery")
+    const gallery = document.getElementById("gallery")    
     gallery.innerHTML += `<figure>
                             <img crossorigin="anonymous" src="${work.imageUrl}" alt="${work.title}">
                             <figcaption>${work.title}</figcaption>
-                        </figure>` 
-                        console.log(work)
+                        </figure>`                        
 }
 
 
@@ -33,14 +49,16 @@ fetch ("http://localhost:5678/api/categories")
     .then(categories => {
         for (let categorie of categories) {
             displayCategorie(categorie)
+            listCategorie.push(categorie)
+            
         }
     })
     .catch(error => {
         alert(error)
     })
 
+
 function displayCategorie(categorie) {
     const filtres = document.getElementById("filtres")
-    filtres.innerHTML += `<li id="${categorie.id}"> ${categorie.name}</li>`
-    console.log(categorie)
-}
+    filtres.innerHTML += `<li id="${categorie.id} name="button" ><a href="#" > ${categorie.name}</a></li>`   
+} 
