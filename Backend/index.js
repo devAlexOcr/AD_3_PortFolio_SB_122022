@@ -4,8 +4,6 @@ console.log(listWork)
 let listCategorie =[]
 console.log(listCategorie)
 
-const elt = document.getElementsByName('button')
-console.log(elt[0])
 
 fetch ("http://localhost:5678/api/works")
     .then(res =>{
@@ -18,13 +16,8 @@ fetch ("http://localhost:5678/api/works")
        
     .then(works => {
         for (let work of works) {
-            if ( listCategorie.id === work.categoryId) {
-                
-                displayWork()
-            } else {
-                ''
-            }
-            listWork.push(work)                      
+            displayWork(work)
+            listWork.push(work.categoryId)              
         }    
     })
 
@@ -49,8 +42,7 @@ fetch ("http://localhost:5678/api/categories")
     .then(categories => {
         for (let categorie of categories) {
             displayCategorie(categorie)
-            listCategorie.push(categorie)
-            
+            listCategorie.push(categorie.id)           
         }
     })
     .catch(error => {
@@ -60,5 +52,19 @@ fetch ("http://localhost:5678/api/categories")
 
 function displayCategorie(categorie) {
     const filtres = document.getElementById("filtres")
-    filtres.innerHTML += `<li id="${categorie.id} name="button" ><a href="#" > ${categorie.name}</a></li>`   
+    filtres.innerHTML += `<li name="button" ><a href="#" id="${categorie.id}" > ${categorie.name}</a></li>`   
 } 
+
+let elt = document.getElementById('0')
+
+elt.addEventListener('click', function display(i) {
+    i.preventDefault()
+    i.stopPropagation()
+   for (let Id of listWork ) {
+    if ( Id === 1) {
+        displayWork()
+    } else {
+        ''
+    }
+   }
+})
