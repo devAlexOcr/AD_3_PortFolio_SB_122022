@@ -97,15 +97,19 @@ nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
+header li:hover{
+	color: #B1663C;
+}
 #filtres nav{
 	width: 80%;
 }
 nav a{
 	text-decoration: none;
 }
-#filtres li{
+#filtres button{
 	border: 2px solid #1D6154;
 	border-radius: 20px;
+	background-color: #FFFEF8;
 	font-size: 16px;
 	margin : 50px 0 50px 0;
 	height: 40px;
@@ -113,17 +117,17 @@ nav a{
 	align-items: center;
 	font-family: 'syne' ;
 	color: #1D6154;
-	width: 15%;
+	width: 20%;
 	white-space: nowrap;
 	justify-content: center;	
 }
-#filtres a{
-	color: #1D6154;
+
+#filtres button:hover {
+color: #FFFEF8;
+background-color: #1D6154;
 }
 
-li:hover {
-	color: #B1663C;
-}
+
 #introduction {
 	display: flex;
 	align-items: center;
