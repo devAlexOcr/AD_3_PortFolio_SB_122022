@@ -106,7 +106,7 @@ header li:hover{
 nav a{
 	text-decoration: none;
 }
-#filtres button{
+#filtres li{
 	border: 2px solid #1D6154;
 	border-radius: 20px;
 	background-color: #FFFEF8;
@@ -122,7 +122,7 @@ nav a{
 	justify-content: center;	
 }
 
-#filtres button:hover {
+#filtres li:hover {
 color: #FFFEF8;
 background-color: #1D6154;
 }

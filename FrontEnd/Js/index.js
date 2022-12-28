@@ -1,21 +1,22 @@
 
 let listWork = []
+let listCat = 0;
 
-
+let filtres = document.getElementById("filtres")
 
     fetch ("http://localhost:5678/api/works")
     .then(res => res.json())
    
-    .then( works => {
+    .then( works => { 
+        listWork = works
         for (let work of works) {
-            displayWork(work)  
-            listWork.push(work)                                       
+            displayWork(work)                                              
     }
     }) 
-    
     .catch(error => {
         alert(error)
     })
+   
 
 
 const gallery = document.getElementById("gallery") 
@@ -29,37 +30,36 @@ function displayWork(work) {
 
 
 
-
     fetch ("http://localhost:5678/api/categories")
     .then(res => res.json())
 
     .then(categories => {
+        listCat = categories
         for (let categorie of categories) {
-            displayCategorie(categorie) 
-            
+            displayCategorie(categorie)            
         }
-    })       
+    })  
+    .then(ok => {
+        let allFiltreBtn = filtres.getElementsByTagName("button") 
+        
+        for (let i=0; i< allFiltreBtn.length; i++) {
+            let idCat = allFiltreBtn[i].getAttribute('data-id')
+            allFiltreBtn[i].addEventListener('click', filtree => {
+            })
+    }})
+
     .catch(error => {
-        alert(error)
+            alert(error)
     })
-
-const filtres = document.getElementById("filtres")
-
+    
     function displayCategorie(categorie) {
-    filtres.innerHTML += `<button data-id="${categorie.id}" onclick="filtre()"><li> ${categorie.name}</li></button>`   
+    filtres.innerHTML += `<li><button data-id="${categorie.id}"> ${categorie.name}</button></li>`   
 }
 
-let idCat = document.querySelector("button")
-
-async function filtre() {
-   
-    for (let work of listWork) {
-      
-    if (idCat.dataset.id === work.categoryId || idCat.dataset.id === 0) {
-        gallery.innerHTML = ""
-        displayWork()       
-     }else{
-         ""
-     }
-    }}
-    
+function filtree(idCat) {
+    gallery.innerHTML = ""
+    if (idCat == 0){       
+        displayWork()
+    }else (idCat == work.categoryId)
+        displayWork()   
+}
