@@ -121,8 +121,18 @@ nav a{
 	white-space: nowrap;
 	justify-content: center;	
 }
+#filtres button{
+	font-family: 'syne' ;
+	color: #1D6154;
+	font-size: 16px;
+	border: none;
+	width: 100%;
+	height: 40px;	
+	background-color: #FFFEF8;
+	border-radius: 20px;
+}
 
-#filtres li:hover {
+#filtres li:hover, #filtres button:hover{
 color: #FFFEF8;
 background-color: #1D6154;
 }
