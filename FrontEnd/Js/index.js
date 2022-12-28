@@ -1,5 +1,6 @@
 
-let listWork = []
+let listWork
+
 let listCat = 0;
 
 let filtres = document.getElementById("filtres")
@@ -41,11 +42,13 @@ function displayWork(work) {
     })  
     .then(ok => {
         let allFiltreBtn = filtres.getElementsByTagName("button") 
-        
+ console.log(allFiltreBtn.length)  
         for (let i=0; i< allFiltreBtn.length; i++) {
             let idCat = allFiltreBtn[i].getAttribute('data-id')
+ console.log(idCat)
             allFiltreBtn[i].addEventListener('click', filtree => {
-            })
+            }
+            )
     }})
 
     .catch(error => {
