@@ -1,6 +1,6 @@
 
-let listWork
-let listCategorie
+let listWork = []
+
 
 
     fetch ("http://localhost:5678/api/works")
@@ -8,11 +8,11 @@ let listCategorie
    
     .then( works => {
         for (let work of works) {
-            displayWork(work)                      
-            listWork = work 
-
-    }}) 
-
+            displayWork(work)  
+            listWork.push(work)                                       
+    }
+    }) 
+    
     .catch(error => {
         alert(error)
     })
@@ -36,8 +36,7 @@ function displayWork(work) {
     .then(categories => {
         for (let categorie of categories) {
             displayCategorie(categorie) 
-            listCategorie = categorie
-                              
+            
         }
     })       
     .catch(error => {
@@ -52,13 +51,15 @@ const filtres = document.getElementById("filtres")
 
 let idCat = document.querySelector("button")
 
-async function filtre (work) {
-
+async function filtre() {
+   
+    for (let work of listWork) {
+      
     if (idCat.dataset.id === work.categoryId || idCat.dataset.id === 0) {
         gallery.innerHTML = ""
-        displayWork()
-        
+        displayWork()       
      }else{
          ""
      }
-    }
+    }}
+    
