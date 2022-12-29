@@ -23,7 +23,8 @@ let filtres = document.getElementById("filtres")
 
 const gallery = document.getElementById("gallery") 
 
-function displayWork(work) {      
+function displayWork(work) { 
+       
     gallery.innerHTML += `<figure>
                             <img crossorigin="anonymous" src="${work.imageUrl}" alt="${work.title}">
                             <figcaption>${work.title}</figcaption>
@@ -42,12 +43,10 @@ function displayWork(work) {
         }
     })  
     .then(ok => {
-        let allFiltreBtn = filtres.getElementsByTagName("button") 
-console.log(allFiltreBtn.length)
+        let allFiltreBtn = filtres.getElementsByTagName("button")
         for (let i=0; i< allFiltreBtn.length; i++) {
             let idCat = allFiltreBtn[i].getAttribute('data-id')
-console.log(idCat)
-            allFiltreBtn[i].addEventListener('click', () => {
+            allFiltreBtn[i].addEventListener('click', () => {              
                 filtree(idCat)
             }
             )
@@ -63,13 +62,13 @@ console.log(idCat)
 }
 
 function filtree(idCat) {
-   
-    gallery.innerHTML = " "
+    gallery.innerHTML = ""  
     for(let work of listWork){     
     console.log(work.categoryId) 
     if (idCat == 0){       
         displayWork(work)
-    }else {(idCat == work.categoryId)   
+    }else {
+        if(idCat == work.categoryId)   
         displayWork(work)   
 }}
 }
