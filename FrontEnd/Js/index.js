@@ -1,5 +1,6 @@
 
-let listWork
+let listWork =[]
+
 let listCat = 0;
 
 let filtres = document.getElementById("filtres")
@@ -8,11 +9,10 @@ let filtres = document.getElementById("filtres")
     .then(res => res.json())
    
     .then( works => { 
-        listWork = works
+        
         for (let work of works) {
             displayWork(work)
-
-                                                        
+            listWork.push(work)                                                  
     }
     })
     .catch(error => {
@@ -43,29 +43,33 @@ function displayWork(work) {
     })  
     .then(ok => {
         let allFiltreBtn = filtres.getElementsByTagName("button") 
-   
+console.log(allFiltreBtn.length)
         for (let i=0; i< allFiltreBtn.length; i++) {
             let idCat = allFiltreBtn[i].getAttribute('data-id')
- console.log(idCat)
-            allFiltreBtn[i].addEventListener('click', filtree => {
-                alert(idCat)
+console.log(idCat)
+            allFiltreBtn[i].addEventListener('click', () => {
+                filtree(idCat)
             }
             )
-    }})
+        }
+    })
 
     .catch(error => {
             alert(error)
     })
     
-    function displayCategorie(categorie) {
+ function displayCategorie(categorie) {
     filtres.innerHTML += `<li><button data-id="${categorie.id}"> ${categorie.name}</button></li>`   
 }
 
 function filtree(idCat) {
-    gallery.innerHTML = ""
+   
+    gallery.innerHTML = " "
+    for(let work of listWork){     
+    console.log(work.categoryId) 
     if (idCat == 0){       
         displayWork(work)
-    }else (idCat == work.categoryId)
+    }else {(idCat == work.categoryId)   
         displayWork(work)   
+}}
 }
-console.log(allFiltreBtn.length)
