@@ -177,7 +177,6 @@ margin: auto;
 }
 #contact > * {
 	text-align: center;
-
 }
 #contact h2{
 	margin-bottom: 20px;
@@ -189,7 +188,7 @@ margin: auto;
 	flex-direction: column;
 }
 
-#contact input {
+#contact input{
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -197,6 +196,7 @@ margin: auto;
 }
 #contact label {
 	margin: 2em 0 1em 0;
+	text-align: left;
 }
 #contact textarea {
 	border: none;
