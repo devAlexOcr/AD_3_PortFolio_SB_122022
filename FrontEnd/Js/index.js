@@ -72,3 +72,51 @@ function filtree(idCat) {
         displayWork(work)   
 }}
 }
+
+let logIn = document.querySelectorAll(".logIn")
+    console.log(logIn)
+
+
+let isLogIn = localStorage.getItem("token")? true : false;
+
+if(isLogIn) {
+    logInBtn.style.display = "none"
+    logOutBtn.style.display = "inline"
+    adminBar.style.display = "flex"
+    for( let btnAdmin of logIn){
+        btnAdmin.style.display = "inline"
+    }
+}else{
+    logInBtn.style.display = "inline"
+    logOutBtn.style.display = "none"
+    adminBar.style.display = "none"
+    for( let btnAdmin of logIn){
+        btnAdmin.style.display = "none"
+    }
+    
+}
+
+logOutBtn.addEventListener('click', () =>{
+    localStorage.removeItem("token")
+})
+
+// Modal
+
+// Get the modal
+const modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+const btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+const span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+myBtnProjet.addEventListener('click', function() {
+  modal.style.display = "block";
+})
+// When the user clicks on <span> (x), close the modal
+let close = document.querySelector(".modal-content #close")
+close.addEventListener('click', function() {
+    modal.style.display = "none";
+  })

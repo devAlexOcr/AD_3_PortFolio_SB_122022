@@ -35,7 +35,8 @@ form.addEventListener('submit', (e) => {
        
         console.log(status)
         if(user = true ) {
-           localStorage.setItem(`${status.userId}`,`${status.token}`)
+           localStorage.setItem("token",status.token)
+           location.href="./index.html"
         }else{
         
         }

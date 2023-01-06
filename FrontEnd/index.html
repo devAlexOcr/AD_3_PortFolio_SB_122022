@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+	
 	<meta charset="UTF-8">
 	<title>Sophie Bluel - Architecte d'intérieur</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +10,20 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<script src="https://kit.fontawesome.com/c3b6faaa50.js" crossorigin="anonymous"></script>
+	
 </head>
 <body>
+	<section id="adminBar"><div><i class="fa-light fa-pen-to-square"> Mode édition <button>publier les changements</button></i></div></section>
 <header>
+
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li><a href="login.html">login</a></li>
+			<li><a id="logInBtn" href="login.html">login</a></li>
+			<li><a id="logOutBtn" href="login.html">logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -26,8 +32,10 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
+			<figcaption><button id="myBtnImage" class="logIn"> <i class="fa-light fa-pen-to-square"></i>modifier</button></figcaption>
 		</figure>
 		<article>
+			<button id="myBtnArticle" class="logIn"> <i class="fa-light fa-pen-to-square"></i>modifier</button>
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
@@ -35,7 +43,7 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<h2>Mes Projets <button id="myBtnProjet" class="logIn"> <i class="fa-light fa-pen-to-square"></i>modifier</button></h2>
 		<nav>
 			<ul id="filtres">
 				<li><button data-id="0">Tous</button></li>
@@ -58,6 +66,16 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+			
+		<!-- Modal content -->
+		<div class="modal-content">
+		  <span id="close">&times;</span>
+		  <p>Some text in the Modal..</p>
+		</div>
+	  
+	  </div>
 </main>
 
 <footer>
