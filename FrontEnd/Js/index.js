@@ -101,22 +101,30 @@ logOutBtn.addEventListener('click', () =>{
 })
 
 // Modal
-
-// Get the modal
 const modal = document.getElementById("myModal");
+const close = document.querySelector(".modal-content #close")
 
-// Get the button that opens the modal
-const btn = document.getElementById("myBtn");
+function modalWorks(listWork){
+    console.log(listWork)
+    for(let work of listWork) {
+        console.log(work)
+        displayWorkModal(work)
+    }
 
-// Get the <span> element that closes the modal
-const span = document.getElementsByClassName("close")[0];
+}
+function displayWorkModal(work) {
+    modalMain.innerHTML += `<figure>
+                                 <img crossorigin="anonymous" src="${work.imageUrl}" alt="${work.title}">
+                                 <button><i class="fa-solid fa-trash-can"></i></button>
+                                 <figcaption>éditer</figcaption>
+                            </figure>`
+}
 
-// When the user clicks on the button, open the modal
 myBtnProjet.addEventListener('click', function() {
   modal.style.display = "block";
+  modalWorks(listWork)
 })
-// When the user clicks on <span> (x), close the modal
-let close = document.querySelector(".modal-content #close")
+
 close.addEventListener('click', function() {
     modal.style.display = "none";
   })
