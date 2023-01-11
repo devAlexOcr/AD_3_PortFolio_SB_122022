@@ -48,6 +48,8 @@ function displayWork(work) {
             let idCat = allFiltreBtn[i].getAttribute('data-id')
             allFiltreBtn[i].addEventListener('click', () => {              
                 filtree(idCat)
+                allFiltreBtn[i].style.backgroundColor = "#1D6154"
+                allFiltreBtn[i].style.color = "white"
             }
             )
         }
@@ -74,8 +76,6 @@ function filtree(idCat) {
 }
 
 let logIn = document.querySelectorAll(".logIn")
-    console.log(logIn)
-
 
 let isLogIn = localStorage.getItem("token")? true : false;
 
@@ -101,13 +101,19 @@ logOutBtn.addEventListener('click', () =>{
 })
 
 // Modal
-const modal = document.getElementById("myModal");
-const close = document.querySelector(".modal-content #close")
 
+const close = document.querySelector(".close")
+
+
+myBtnProjet.addEventListener('click', function() {
+    modalMain.innerHTML = ""
+    myModal.style.display = "block";
+    listWorks.style.display ='block'
+    modalForm.style.display ='none'
+    modalWorks(listWork)
+})
 function modalWorks(listWork){
-    console.log(listWork)
     for(let work of listWork) {
-        console.log(work)
         displayWorkModal(work)
     }
 
@@ -115,16 +121,22 @@ function modalWorks(listWork){
 function displayWorkModal(work) {
     modalMain.innerHTML += `<figure>
                                  <img crossorigin="anonymous" src="${work.imageUrl}" alt="${work.title}">
-                                 <button><i class="fa-solid fa-trash-can"></i></button>
                                  <figcaption>éditer</figcaption>
+                                 <button><i class="fa-solid fa-trash-can"></i></button>
                             </figure>`
 }
 
-myBtnProjet.addEventListener('click', function() {
-  modal.style.display = "block";
-  modalWorks(listWork)
-})
+
 
 close.addEventListener('click', function() {
-    modal.style.display = "none";
+    myModal.style.display = "none"
   })
+
+addWorks.addEventListener('click', function() {
+    displayModalForm()
+})
+
+function displayModalForm(){
+    listWorks.style.display ='none'
+    modalForm.style.display ='flex'
+}

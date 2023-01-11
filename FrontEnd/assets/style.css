@@ -130,6 +130,7 @@ nav a{
 	background-color: #1D6154;
 	color: #fefefe;
 	margin: 20px;
+	width: 40%;
 }
 #deleteWorks {
 	border: none;
@@ -138,12 +139,6 @@ nav a{
 	font-family: 'Syne';
 
 }
-
-#filtres button:hover{
-color: #FFFEF8;
-background-color: #1D6154;
-}
-
 
 #introduction {
 	display: flex;
@@ -253,17 +248,20 @@ label{
 	margin-top: 25px;
 }
 #myBtnProjet{
+	font-size: 14px;
 	margin-left: 20px;
 	border: none;
 	background-color: white;
 }
 #myBtnArticle{
+	font-size: 14px;
 	margin-bottom: 50px;
 	border: none;
 	background-color: white;
 }
 
 #myBtnImage{
+	font-size: 14px;
 	position: relative;
 	top: 10px;
 	left: 56px;
@@ -298,15 +296,15 @@ label{
 	top: 0;
 	width: 100%;
 	height: 100%; 
-	 
+	overflow: auto;
 	background-color: rgb(0,0,0); 
 	background-color: rgba(0,0,0,0.4); 
   }
 
-#modalHeader {
+.modalHeader {
 	display: flex;
 	flex-direction: column;
-	width: 150%;
+	margin: 20px;
 }
 
 #myModal h2{
@@ -319,6 +317,12 @@ label{
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
+	width: 77%;
+	margin: auto;
+}
+#modalMainForm {
+	display: flex;
+	justify-content: center;
 }
 
 #modalMain figure{
@@ -329,8 +333,8 @@ label{
 	border: none;
 	border-radius: 3px;
 	position: relative;
-	top: -85px;
-	left: 42%;
+	top: -155px;
+	left: 62%;
 }
 #modalMain button i{
 	color: white;
@@ -342,32 +346,54 @@ label{
 	width: 90%;
 }
 
-#modalFooter  {
+.modalFooter  {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	border-top: 2px solid #aaa;
-	margin: 25px 0;
+	margin: 25px auto;
+	width: 77%;
 }
 
-
-.modal-content {
+.modal-content, #modalForm {
 	background-color: #fefefe;
 	margin: 3% 25%; 
-	padding: 0 100px;
 	border: 1px solid #888;
-	width: 35%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 }
 
-#close {
+.close {
+	width: 93%;
 	display: flex;
 	justify-content: flex-end;
 	color: #aaa;
 	float: right;
 	font-size: 28px;
 	font-weight: bold;
+}
+
+#modalMainForm input{
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09)
+}
+#modalMainForm label{
+	margin: 2em 0 1em 0;
+	text-align: left;
+}
+#modalForm{
+	width: 60%;
+}
+#valid{
+	font-family: 'Syne';
+	background-color: #888;
+	border-radius: 20px;
+	font-size: 20px;
+	color: #fefefe;
+	margin: 20px;
+	width: 40%;
 }
