@@ -110,7 +110,7 @@ nav a{
 #filtres li{
 	width: 20%;
 }
-#filtres button, #addWorks{
+#filtres button, #addWorks, #addImage{
 	font-family: 'syne' ;
 	font-size: 16px;
 	color: #1D6154;
@@ -140,6 +140,11 @@ nav a{
 
 }
 
+#addImage{
+	background-color: #aaa;
+	color: #1D6154;
+	width: 40%;
+}
 #introduction {
 	display: flex;
 	align-items: center;
@@ -198,7 +203,7 @@ margin: auto;
 	flex-direction: column;
 }
 
-#contact input{
+#contact input, select{
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -396,4 +401,17 @@ label{
 	color: #fefefe;
 	margin: 20px;
 	width: 40%;
+}
+
+#imagePost {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 200px;
+	justify-content: center;
+	width: 500px;
+}
+
+#imagePost{
+	background-color: #85a6c2;
 }

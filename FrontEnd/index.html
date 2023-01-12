@@ -95,12 +95,14 @@
 				</div>
 			<div id="modalMainForm">
 				<form method="post">
-					<label for="imageUrl"></label>
-					<input type="image" name="" id="image">
+					<div id="imagePost"><i class="fa-thin fa-image"></i><button id='addImage'>+ Ajouter photo</button><p>jpg. png : 4mo max</p></div>
 					<label for="name">Titre</label>
 					<input type="text" name="name" id="Titre">
-					<label for="catégorie">Catégorie</label>
-					<input type="text" name="catégorie" id="catégorie">
+					<label>Catégorie</label>
+					<select id='optionCat'for="catégorie">Catégorie
+						<option value=""></option>
+						<option>Tous</option>
+					</select>	
 			</div>
 			<div class="modalFooter">
 				<button id="valid">Valider</button>
