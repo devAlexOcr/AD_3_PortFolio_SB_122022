@@ -1,4 +1,6 @@
 
+// recuperation des Works
+
 let listWork =[]
 
 let listCat = 0;
@@ -31,7 +33,7 @@ displayWork=(work) => {
                         </figure>`                       
 }
 
-
+// Recuperation des Categories
 
     fetch ("http://localhost:5678/api/categories")
     .then(res => res.json())
@@ -75,6 +77,7 @@ filtree=(idCat) => {
         displayWork(work)   
 }}
 }
+// affichage des fonctions admin
 
 let logIn = document.querySelectorAll(".logIn")
 
@@ -137,6 +140,8 @@ displayWorkModal=(work) => {
                             </figure>`
 }
 
+// Suppresion d'un work 
+
 addWorks.addEventListener('click', function() {
     displayModalForm()
 })
@@ -162,7 +167,11 @@ removeWork =(id) => {
         {
          return res.json()
          alert('suppression ok')
-        
+
+        // faire fonction actualisation de la gallery works dans modal
+
+
+
         }
         else
             {
@@ -171,10 +180,46 @@ removeWork =(id) => {
             }
             else
                 {
-                 if(res.status === 404)
+                 if(res.status === 500)
                  {
                     alert('Unexpected Behaviour')
 }}}})}
-                
-            
-    
+
+// Fonction d'un nouveau Work 
+      
+valid.addEventListener('click', (e) =>{
+    e.preventDefault()
+    const data = {
+        id: 0,
+        title: document.querySelector('#addpic input[type="text"]').value,
+        imageUrl: document.querySelector('input[type="file"]').value,       
+        categoryId: parseInt(document.querySelector('#optionCat').value),
+        userId: 0
+    }
+    fetch('http://localhost:5678/api/works', {
+        method: 'POST',
+        headers: {
+                    'accept' : 'application/json',
+                    'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3MzUxODIwOSwiZXhwIjoxNjczNjA0NjA5fQ.vDQLbeAkMPbJOy-2iJenk34FFosn5KQTvJhhBgmenJ0',
+                    'Content-type' :'multipart/form-data'
+                 },
+        body: JSON.stringify(data),
+    })
+    .then (res => 
+        {
+         if(res.status === 200)
+        {
+         return res.json()
+         alert('ajout ok')
+        }
+        else
+            {
+             if(res.status === 401){
+                  alert('Unauthorized')
+            }
+            else
+                {
+                 if(res.status === 500)
+                 {
+                    alert('Unexpected Behaviour')
+}}}})})
