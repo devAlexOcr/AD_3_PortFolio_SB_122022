@@ -7,20 +7,33 @@ let listCat = 0;
 
 let filtres = document.getElementById("filtres")
 
-    fetch ("http://localhost:5678/api/works")
+getWorks=() =>
+   fetch ("http://localhost:5678/api/works")
     .then(res => res.json())
    
     .then( works => { 
-        
+        listWork = works
+        gallery.innerHTML = "" 
         for (let work of works) {
-            displayWork(work)
-            listWork.push(work)                                                  
+            displayWork(work)                                                             
     }
+    })
+    .then (modalWorks=() => {
+        modalMain.innerHTML =""
+        for(let work of listWork) {
+            displayWorkModal(work)
+        }
+        let removeBtn = document.querySelectorAll(".fa-trash-can")
+            for(let i=0; i< removeBtn.length; i++){
+                removeBtn[i].addEventListener('click', () =>{
+                removeWork(listWork[i].id)
+                })}
     })
     .catch(error => {
         alert(error)
     })
-   
+
+getWorks()
 
 
 const gallery = document.getElementById("gallery") 
@@ -34,6 +47,17 @@ displayWork=(work) => {
 }
 
 // Recuperation des Categories
+filtree=(idCat) => {
+    gallery.innerHTML = ""  
+    for(let work of listWork){     
+    console.log(work.categoryId) 
+    if (idCat == 0){       
+        displayWork(work)
+    }else {
+        if(idCat == work.categoryId)   
+        displayWork(work)   
+}}
+}
 
     fetch ("http://localhost:5678/api/categories")
     .then(res => res.json())
@@ -63,20 +87,10 @@ displayWork=(work) => {
     
 displayCategorie=(categorie) => {
     filtres.innerHTML += `<li><button data-id="${categorie.id}"> ${categorie.name}</button></li>`
-    optionCat.innerHTML += `<option>${categorie.name}</option>`   
+    optionCat.innerHTML += `<option value='${categorie.id}'>${categorie.name}</option>`   
 }
 
-filtree=(idCat) => {
-    gallery.innerHTML = ""  
-    for(let work of listWork){     
-    console.log(work.categoryId) 
-    if (idCat == 0){       
-        displayWork(work)
-    }else {
-        if(idCat == work.categoryId)   
-        displayWork(work)   
-}}
-}
+
 // affichage des fonctions admin
 
 let logIn = document.querySelectorAll(".logIn")
@@ -113,8 +127,7 @@ closeBtn[i].addEventListener('click', function() {
   })
 }
 
-myBtnProjet.addEventListener('click', () => {
-    modalMain.innerHTML = ""
+myBtnProjet.addEventListener('click', () => {    
     myModal.style.display = "block";
     listWorks.style.display ='block'
     modalForm.style.display ='none'
@@ -122,6 +135,7 @@ myBtnProjet.addEventListener('click', () => {
 })
 
 modalWorks=(listWork) => {
+    modalMain.innerHTML =""
     for(let work of listWork) {
         displayWorkModal(work)
     }
@@ -140,86 +154,56 @@ displayWorkModal=(work) => {
                             </figure>`
 }
 
-// Suppresion d'un work 
-
 addWorks.addEventListener('click', function() {
     displayModalForm()
 })
+
+// Suppresion d'un work 
 
 displayModalForm=() => {
     listWorks.style.display ='none'
     modalForm.style.display ='flex'
 }
 
+back.addEventListener('click', () =>{
+    listWorks.style.display ='block'
+    modalForm.style.display ='none'
+})
 
 removeWork =(id) => {
-    alert(id)
+   if(confirm('Etes-vous sûr de vouloir supprimer ce work') == true){
     fetch('http://localhost:5678/api/works/' + id, {
         method: 'DELETE',
         headers: {
             'accept' : '*/*',
-            'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3MzUxODIwOSwiZXhwIjoxNjczNjA0NjA5fQ.vDQLbeAkMPbJOy-2iJenk34FFosn5KQTvJhhBgmenJ0',
+            'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3NDEyNzA4MCwiZXhwIjoxNjc0MjEzNDgwfQ.Q-RyxkQj1yV7228pAZQN-v4JPsx6awHqDKTKqlLVS6o',
         }
-})
-.then (res => 
-        {
-         if(res.status === 200)
-        {
-         return res.json()
-         alert('suppression ok')
-
-        // faire fonction actualisation de la gallery works dans modal
+    })
+    .then (getWorks()
+    )
+    .then (res2=() => {console.log(listWork)})
+}}
 
 
-
-        }
-        else
-            {
-             if(res.status === 401){
-                  alert('Unauthorized')
-            }
-            else
-                {
-                 if(res.status === 500)
-                 {
-                    alert('Unexpected Behaviour')
-}}}})}
-
-// Fonction d'un nouveau Work 
+// Fonction ajout d'un nouveau Work 
       
 valid.addEventListener('click', (e) =>{
     e.preventDefault()
-    const data = {
-        id: 0,
-        title: document.querySelector('#addpic input[type="text"]').value,
-        imageUrl: document.querySelector('input[type="file"]').value,       
-        categoryId: parseInt(document.querySelector('#optionCat').value),
-        userId: 0
-    }
+
+    let data = new FormData()
+    data.append('image', document.getElementById('imageFile').files[0])
+    data.append('titre', document.querySelector('#titreWork').value)
+    let selectCat = document.querySelector('#optionCat')
+    data.append('categorie', selectCat.option[selectedIndex].value)
+     
+
     fetch('http://localhost:5678/api/works', {
         method: 'POST',
         headers: {
                     'accept' : 'application/json',
-                    'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3MzUxODIwOSwiZXhwIjoxNjczNjA0NjA5fQ.vDQLbeAkMPbJOy-2iJenk34FFosn5KQTvJhhBgmenJ0',
-                    'Content-type' :'multipart/form-data'
+                    'Authorization' : 'Bearer' + localStorage.getItem("token"),
                  },
-        body: JSON.stringify(data),
-    })
-    .then (res => 
-        {
-         if(res.status === 200)
-        {
-         return res.json()
-         alert('ajout ok')
-        }
-        else
-            {
-             if(res.status === 401){
-                  alert('Unauthorized')
-            }
-            else
-                {
-                 if(res.status === 500)
-                 {
-                    alert('Unexpected Behaviour')
-}}}})})
+        body: data,
+        })
+    .then ( alert('ajout ok'))       
+})

@@ -16,8 +16,7 @@ form.addEventListener('submit', (e) => {
                     'Content-Type': 'application/json'
                 },
          body: JSON.stringify(user) 
-            })
-            
+            })           
     .then (res => {
         if(res.status === 200){
              return res.json()
@@ -31,14 +30,12 @@ form.addEventListener('submit', (e) => {
             }
         }
     })
-    .then (status => {
-       
-        console.log(status)
-        if(user = true ) {
+    .then (status => {  
+        if(status.token) {
            localStorage.setItem("token",status.token)
            location.href="./index.html"
         }else{
-        
+        alert(error)
         }
     })   
  })
