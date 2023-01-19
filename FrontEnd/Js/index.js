@@ -171,17 +171,17 @@ back.addEventListener('click', () =>{
 })
 
 removeWork =(id) => {
+    console.log(localStorage.getItem('token'))
    if(confirm('Etes-vous sûr de vouloir supprimer ce work') == true){
     fetch('http://localhost:5678/api/works/' + id, {
         method: 'DELETE',
         headers: {
             'accept' : '*/*',
-            'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3NDEyNzA4MCwiZXhwIjoxNjc0MjEzNDgwfQ.Q-RyxkQj1yV7228pAZQN-v4JPsx6awHqDKTKqlLVS6o',
+            'Authorization' : 'Bearer ' + (localStorage.getItem("token")),
         }
     })
     .then (getWorks()
     )
-    .then (res2=() => {console.log(listWork)})
 }}
 
 
@@ -194,16 +194,17 @@ valid.addEventListener('click', (e) =>{
     data.append('image', document.getElementById('imageFile').files[0])
     data.append('titre', document.querySelector('#titreWork').value)
     let selectCat = document.querySelector('#optionCat')
-    data.append('categorie', selectCat.option[selectedIndex].value)
-     
+    data.append('categorie', selectCat.options[selectCat.selectedIndex].value)
+
 
     fetch('http://localhost:5678/api/works', {
         method: 'POST',
         headers: {
                     'accept' : 'application/json',
-                    'Authorization' : 'Bearer' + localStorage.getItem("token"),
+                    'Authorization' : 'Bearer' + (localStorage.getItem("token")),
                  },
         body: data,
         })
-    .then ( alert('ajout ok'))       
+    .then (res=> res.json())
+    .catch (error => alert(error))          
 })
