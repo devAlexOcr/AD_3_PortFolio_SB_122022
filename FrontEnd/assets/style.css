@@ -88,7 +88,6 @@ h2{
 nav ul {
 	display: flex;
 	align-items: center;
-	list-style-type: none;
 	justify-content: space-evenly;
 
 
@@ -138,12 +137,6 @@ nav a{
 	color: red;
 	font-family: 'Syne';
 
-}
-
-#addImage{
-	background-color: #aaa;
-	color: #1D6154;
-	width: 40%;
 }
 #introduction {
 	display: flex;
@@ -280,6 +273,7 @@ label{
 	justify-content: center;
 	align-items: center;
 	height: 50px;
+	margin: 0;
 }
 
 #adminBtn {
@@ -302,53 +296,70 @@ label{
 	width: 100%;
 	height: 100%; 
 	overflow: auto;
-	background-color: rgb(0,0,0); 
 	background-color: rgba(0,0,0,0.4); 
   }
 
 .modalHeader {
+	width: 90%;
+	height: 5%;
 	display: flex;
-	flex-direction: column;
-	margin: 20px;
+	justify-content: space-between;
+	align-items: center;
+}
+#back{
+	font-size: 28px;
+	color: #aaa;
+	border: none;
+	background: none;
+}
+.close {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	color: #aaa;
+	font-size: 28px;
+	font-weight: bold;
 }
 
 #myModal h2{
-	display: flex;
-	justify-content: center;
-	margin: 25px;
+	text-align: center;
+	margin: 20px;
 }
 
 #modalMain {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
-	width: 77%;
+	width: 65%;
+	height: 69%;
 	margin: auto;
+	gap: 10px;
 }
-#modalMainForm {
-	display: flex;
-	justify-content: center;
+
+#listWorks{
+	height: 100%;
 }
 
 #modalMain figure{
-	width: 20%;
+	width: 18%;
+	height: 33%;
 }
+#modalMain figure img{
+	width: 100%;
+	object-fit: cover;
+}
+
 #modalMain button{
 	background-color: #000;
 	border: none;
 	border-radius: 3px;
-	position: relative;
-	top: -155px;
-	left: 62%;
+	position: absolute;
+	
 }
 #modalMain button i{
 	color: white;
 	padding: 4px;
 	font-size: 13px;
-}
-
-#modalMain figure img{
-	width: 90%;
 }
 
 .modalFooter  {
@@ -357,12 +368,14 @@ label{
 	align-items: center;
 	border-top: 2px solid #aaa;
 	margin: 25px auto;
-	width: 77%;
+	width: 65%;
 }
 
 .modal-content, #modalForm {
+	width: 40%;
+	height: 90%;
+	margin: 2% 30%; 
 	background-color: #fefefe;
-	margin: 3% 25%; 
 	border: 1px solid #888;
 	display: flex;
 	flex-direction: column;
@@ -370,15 +383,24 @@ label{
 	justify-content: center;
 }
 
-.close {
-	width: 93%;
+#modalMainForm {
 	display: flex;
-	justify-content: flex-end;
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
+	flex-direction: column;
+	justify-content: center;
+	height: 75%;
+	width: 90%;
 }
+
+#modalMainForm form{
+	display: flex;
+    flex-direction: column;
+    font-family: 'Work Sans';
+    font-size: 14px;
+    height: 90%;
+	width: 90%;
+	margin: auto;
+}
+
 
 #modalMainForm input{
 	height: 50px;
@@ -390,9 +412,16 @@ label{
 	margin: 2em 0 1em 0;
 	text-align: left;
 }
-#modalForm{
-	width: 60%;
+#photo{
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
+.fa-image{
+	font-size: 95px;	
+}
+
 #valid{
 	font-family: 'Syne';
 	background-color: #888;
@@ -406,12 +435,16 @@ label{
 #imagePost {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	height: 200px;
 	justify-content: center;
-	width: 500px;
-}
-
-#imagePost{
+	align-items: center;
+	height: 50%;	
 	background-color: #85a6c2;
+}
+#addImage{
+	background-color: #aaa;
+	color: #1D6154;
+	width: 30%;
+}
+input[type="file"]{
+	display: none;
 }

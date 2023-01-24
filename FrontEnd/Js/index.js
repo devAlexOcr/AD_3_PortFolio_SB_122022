@@ -5,25 +5,25 @@ let listWork =[]
 
 let listCat = 0;
 
-let filtres = document.getElementById("filtres")
+let filtres = document.getElementById('filtres')
 
 getWorks=() =>
-   fetch ("http://localhost:5678/api/works")
+   fetch ('http://localhost:5678/api/works')
     .then(res => res.json())
    
     .then( works => { 
         listWork = works
-        gallery.innerHTML = "" 
+        gallery.innerHTML = '' 
         for (let work of works) {
             displayWork(work)                                                             
     }
     })
     .then (modalWorks=() => {
-        modalMain.innerHTML =""
+        modalMain.innerHTML = ''
         for(let work of listWork) {
             displayWorkModal(work)
         }
-        let removeBtn = document.querySelectorAll(".fa-trash-can")
+        let removeBtn = document.querySelectorAll('.fa-trash-can')
             for(let i=0; i< removeBtn.length; i++){
                 removeBtn[i].addEventListener('click', () =>{
                 removeWork(listWork[i].id)
@@ -36,21 +36,21 @@ getWorks=() =>
 getWorks()
 
 
-const gallery = document.getElementById("gallery") 
+const gallery = document.getElementById('gallery') 
 
 displayWork=(work) => { 
        
     gallery.innerHTML += `<figure>
-                            <img crossorigin="anonymous" src="${work.imageUrl}" alt="${work.title}">
+                            <img crossorigin='anonymous' src='${work.imageUrl}'alt='${work.title}'>
                             <figcaption>${work.title}</figcaption>
                         </figure>`                       
 }
 
 // Recuperation des Categories
 filtree=(idCat) => {
-    gallery.innerHTML = ""  
+    gallery.innerHTML = ''
+    
     for(let work of listWork){     
-    console.log(work.categoryId) 
     if (idCat == 0){       
         displayWork(work)
     }else {
@@ -59,7 +59,7 @@ filtree=(idCat) => {
 }}
 }
 
-    fetch ("http://localhost:5678/api/categories")
+    fetch ('http://localhost:5678/api/categories')
     .then(res => res.json())
 
     .then(categories => {
@@ -69,13 +69,17 @@ filtree=(idCat) => {
         }
     })  
     .then(ok => {
-        let allFiltreBtn = filtres.getElementsByTagName("button")
+        let allFiltreBtn = filtres.getElementsByTagName('button')
         for (let i=0; i< allFiltreBtn.length; i++) {
             let idCat = allFiltreBtn[i].getAttribute('data-id')
-            allFiltreBtn[i].addEventListener('click', () => {              
+            allFiltreBtn[i].addEventListener('click', () => {          
                 filtree(idCat)
-                allFiltreBtn[i].style.backgroundColor = "#1D6154"
-                allFiltreBtn[i].style.color = "white"
+                for( let BtnFiltre of allFiltreBtn){
+                    BtnFiltre.style.backgroundColor = 'white'
+                    BtnFiltre.style.color = '#1D6154'
+                }
+                allFiltreBtn[i].style.backgroundColor = '#1D6154'
+                allFiltreBtn[i].style.color = 'white'
             }
             )
         }
@@ -93,53 +97,53 @@ displayCategorie=(categorie) => {
 
 // affichage des fonctions admin
 
-let logIn = document.querySelectorAll(".logIn")
+let logIn = document.querySelectorAll('.logIn')
 
-let isLogIn = localStorage.getItem("token")? true : false;
+let isLogIn = localStorage.getItem('token')? true : false;
 
 if(isLogIn) {
-    logInBtn.style.display = "none"
-    logOutBtn.style.display = "inline"
-    adminBar.style.display = "flex"
+    logInBtn.style.display = 'none'
+    logOutBtn.style.display = 'inline'
+    adminBar.style.display = 'flex'
     for( let btnAdmin of logIn){
-        btnAdmin.style.display = "inline"
+        btnAdmin.style.display = 'inline'
     }
 }else{
-    logInBtn.style.display = "inline"
-    logOutBtn.style.display = "none"
-    adminBar.style.display = "none"
+    logInBtn.style.display = 'inline'
+    logOutBtn.style.display = 'none'
+    adminBar.style.display = 'none'
     for( let btnAdmin of logIn){
-        btnAdmin.style.display = "none"
+        btnAdmin.style.display = 'none'
     }
     
 }
 
 logOutBtn.addEventListener('click', () =>{
-    localStorage.removeItem("token")
+    localStorage.removeItem('token')
 })
 
 // Modal
 
-const closeBtn = document.querySelectorAll(".close")
+const closeBtn = document.querySelectorAll('.close')
 for (let i=0; i< closeBtn.length; i++){
 closeBtn[i].addEventListener('click', function() {
-    myModal.style.display = "none"
+    myModal.style.display = 'none'
   })
 }
 
 myBtnProjet.addEventListener('click', () => {    
-    myModal.style.display = "block";
+    myModal.style.display = 'block';
     listWorks.style.display ='block'
     modalForm.style.display ='none'
     modalWorks(listWork)
 })
 
 modalWorks=(listWork) => {
-    modalMain.innerHTML =""
+    modalMain.innerHTML = ''
     for(let work of listWork) {
         displayWorkModal(work)
     }
-    let removeBtn = document.querySelectorAll(".fa-trash-can")
+    let removeBtn = document.querySelectorAll('.fa-trash-can')
         for(let i=0; i< removeBtn.length; i++){
             removeBtn[i].addEventListener('click', () =>{
             removeWork(listWork[i].id)
@@ -148,9 +152,10 @@ modalWorks=(listWork) => {
 
 displayWorkModal=(work) => {
     modalMain.innerHTML += `<figure>
-                                 <img crossorigin="anonymous" src="${work.imageUrl}" alt="${work.title}">
+                                 <img crossorigin='anonymous' src='${work.imageUrl}' alt='${work.title}'>
+                                 <button><i class='fa-solid fa-trash-can'></i></button>
                                  <figcaption>éditer</figcaption>
-                                 <button><i class="fa-solid fa-trash-can"></i></button>
+                                
                             </figure>`
 }
 
@@ -158,7 +163,7 @@ addWorks.addEventListener('click', function() {
     displayModalForm()
 })
 
-// Suppresion d'un work 
+// Suppression d'un work 
 
 displayModalForm=() => {
     listWorks.style.display ='none'
@@ -171,7 +176,6 @@ back.addEventListener('click', () =>{
 })
 
 removeWork =(id) => {
-    console.log(localStorage.getItem('token'))
    if(confirm('Etes-vous sûr de vouloir supprimer ce work') == true){
     fetch('http://localhost:5678/api/works/' + id, {
         method: 'DELETE',
@@ -180,13 +184,17 @@ removeWork =(id) => {
             'Authorization' : 'Bearer ' + (localStorage.getItem("token")),
         }
     })
-    .then (getWorks()
-    )
+    .then (getWorks())
 }}
 
 
 // Fonction ajout d'un nouveau Work 
-      
+addFile = document.querySelector('input[type="file"]')
+console.log(addFile)
+addImage.addEventListener('click',(e) => {
+    e.preventDefault()
+    addFile.click()   
+})
 valid.addEventListener('click', (e) =>{
     e.preventDefault()
 
@@ -195,16 +203,19 @@ valid.addEventListener('click', (e) =>{
     data.append('titre', document.querySelector('#titreWork').value)
     let selectCat = document.querySelector('#optionCat')
     data.append('categorie', selectCat.options[selectCat.selectedIndex].value)
-
+    
 
     fetch('http://localhost:5678/api/works', {
         method: 'POST',
         headers: {
-                    'accept' : 'application/json',
-                    'Authorization' : 'Bearer' + (localStorage.getItem("token")),
+                    'accept': 'application/json',
+                    'Authorization': 'Bearer ' + (localStorage.getItem("token")),
+                    'Content-type': 'multipart/form-data',
+                    
                  },
         body: data,
         })
-    .then (res=> res.json())
+    .then (res=> (res.json()))
+    
     .catch (error => alert(error))          
 })

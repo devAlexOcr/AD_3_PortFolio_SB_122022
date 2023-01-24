@@ -14,7 +14,7 @@
 	
 </head>
 <body>
-	<section id="adminBar"><div><i class="fa-light fa-pen-to-square"> Mode édition <button id="adminBtn">publier les changements</button></i></div></section>
+	<section id="adminBar"><div><i class="fa-solid fa-pen-to-square"></i> Mode édition <button id="adminBtn">publier les changements</button></div></section>
 <header>
 
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -32,10 +32,10 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
-			<figcaption><button id="myBtnImage" class="logIn"> <i class="fa-light fa-pen-to-square"></i>modifier</button></figcaption>
+			<figcaption><button id="myBtnImage" class="logIn"> <i class="fa-solid fa-pen-to-square"></i> modifier </button></figcaption>
 		</figure>
 		<article>
-			<button id="myBtnArticle" class="logIn"> <i class="fa-light fa-pen-to-square"></i>modifier</button>
+			<button id="myBtnArticle" class="logIn"> <i class="fa-solid fa-pen-to-square"></i> modifier </button>
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
@@ -43,7 +43,7 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets <button id="myBtnProjet" class="logIn"> <i class="fa-light fa-pen-to-square"></i>modifier</button></h2>
+		<h2>Mes Projets <button id="myBtnProjet" class="logIn"> <i class="fa-solid fa-pen-to-square"></i> modifier </button></h2>
 		<nav>
 			<ul id="filtres">
 				<li><button data-id="0">Tous</button></li>
@@ -73,11 +73,11 @@
 		<div class="modal-content">
 			<div id="listWorks">
 				<div class="modalHeader">
-		  			<span class="close">&times;</span>
-		  			<h2>Galerie photo</h2>
+					<span class="close"><i class="fa-solid fa-x"></i></span>	
 				</div>
-
+				<h2>Galerie photo</h2>
 				<div id="modalMain">
+					
 				</div>	
 
 				<div class="modalFooter">
@@ -90,14 +90,15 @@
 			<div id="modalForm" class="modal">
 
 				<div class="modalHeader">
-					<button id="back">Back</button>
-					<span class="close">&times;</span>
-		  			<h2>Ajout photo</h2>			
+					<button id="back"><i class="fa-solid fa-arrow-left"></i></button>
+					<span class="close"><i class="fa-solid fa-x"></i></span>
+		  					
 				</div>
 			<div id="modalMainForm">
+				<h2>Ajout photo</h2>	
 				<form method="post" id='addpic'>
 					<div id="imagePost">
-						<label><i class="fa-thin fa-image"></i>						
+						<label id="photo"><i class="fa-solid fa-image"></i>						
 						<input type="file" id="imageFile">
 						<button id="addImage">+ Ajouter photo</button>
 						<p>jpg. png : 4mo max</p>
