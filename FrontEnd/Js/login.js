@@ -20,7 +20,6 @@ form.addEventListener('submit', (e) => {
     .then (res => {
         if(res.status === 200){
              return res.json()
-             form.reset()
         }else{
             if(res.status === 401){
                 alert('error password')

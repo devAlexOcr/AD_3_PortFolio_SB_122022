@@ -190,7 +190,6 @@ removeWork =(id) => {
 
 // Fonction ajout d'un nouveau Work 
 addFile = document.querySelector('input[type="file"]')
-console.log(addFile)
 addImage.addEventListener('click',(e) => {
     e.preventDefault()
     addFile.click()   
@@ -204,16 +203,17 @@ valid.addEventListener('click', (e) =>{
     let selectCat = document.querySelector('#optionCat')
     data.append('categorie', selectCat.options[selectCat.selectedIndex].value)
     
+    addPic.reset()
+    console.log(addFile.value)
 
     fetch('http://localhost:5678/api/works', {
         method: 'POST',
         headers: {
                     'accept': 'application/json',
                     'Authorization': 'Bearer ' + (localStorage.getItem("token")),
-                    'Content-type': 'multipart/form-data',
                     
                  },
-        body: data,
+        body: JSON.stringify(data),
         })
     .then (res=> (res.json()))
     

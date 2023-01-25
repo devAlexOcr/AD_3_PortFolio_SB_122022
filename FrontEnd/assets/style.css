@@ -129,7 +129,7 @@ nav a{
 	background-color: #1D6154;
 	color: #fefefe;
 	margin: 20px;
-	width: 40%;
+	width: 55%;
 }
 #deleteWorks {
 	border: none;
@@ -232,7 +232,7 @@ footer nav ul {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-bottom: 300px;
+	margin-bottom: 25px auto 300px;
 	
 }
 
@@ -305,6 +305,7 @@ label{
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin: 2% auto;
 }
 #back{
 	font-size: 28px;
@@ -330,8 +331,8 @@ label{
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
-	width: 65%;
-	height: 69%;
+	width: 73%;
+	height: 57%;
 	margin: auto;
 	gap: 10px;
 }
@@ -419,7 +420,7 @@ label{
 	align-items: center;
 }
 .fa-image{
-	font-size: 95px;	
+	font-size: 60px;	
 }
 
 #valid{
@@ -443,7 +444,8 @@ label{
 #addImage{
 	background-color: #aaa;
 	color: #1D6154;
-	width: 30%;
+	width: 42%;
+	margin: 10px 0 10px 0;
 }
 input[type="file"]{
 	display: none;
