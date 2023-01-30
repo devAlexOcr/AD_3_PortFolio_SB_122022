@@ -39,11 +39,26 @@ getWorks()
 const gallery = document.getElementById('gallery') 
 
 displayWork=(work) => { 
-       
-    gallery.innerHTML += `<figure>
-                            <img crossorigin='anonymous' src='${work.imageUrl}'alt='${work.title}'>
-                            <figcaption>${work.title}</figcaption>
-                        </figure>`                       
+        let newFigure= document.createElement('figure')
+
+        let newImg= document.createElement('img')
+            let a= document.createAttribute("src")
+                a.value= `${work.imageUrl}`
+                newImg.setAttributeNode(a)
+            let b= document.createAttribute("crossorigin")
+                b.value= 'anonymous'
+                newImg.setAttributeNode(b)
+            let c= document.createAttribute("alt")
+                c.value= `${work.title}`
+                newImg.setAttributeNode(c)
+
+        let newFigCaption= document.createElement('figcaption')
+        let newContent= document.createTextNode(`${work.title}`)
+
+    gallery.appendChild(newFigure)
+        newFigure.appendChild(newImg)
+        newFigure.appendChild(newFigCaption)
+            newFigCaption.appendChild(newContent)                 
 }
 
 // Recuperation des Categories
@@ -90,10 +105,27 @@ filtree=(idCat) => {
     })
     
 displayCategorie=(categorie) => {
-    filtres.innerHTML += `<li><button data-id="${categorie.id}"> ${categorie.name}</button></li>`
-    optionCat.innerHTML += `<option value='${categorie.id}'>${categorie.name}</option>`   
-}
 
+    let newLi= document.createElement('li')
+    let newButton= document.createElement('button')
+        let a= document.createAttribute('data-id')
+            a.value=`${categorie.id}`
+            newButton.setAttributeNode(a)
+    let newContent= document.createTextNode(`${categorie.name}`)
+    let newOption= document.createElement('option')
+        let b=document.createAttribute('value')
+            b.value= `${categorie.id}`
+            newOption.setAttributeNode(b)
+    let newContentOption= document.createTextNode(`${categorie.name}`)
+
+    filtres.appendChild(newLi)
+        newLi.appendChild(newButton)
+            newButton.appendChild(newContent)
+    
+    optionCat.appendChild(newOption)
+        newOption.appendChild(newContentOption)
+    
+}
 
 // affichage des fonctions admin
 
@@ -148,20 +180,67 @@ modalWorks=(listWork) => {
             removeBtn[i].addEventListener('click', () =>{
             removeWork(listWork[i].id)
             })}
-}
+        }
 
 displayWorkModal=(work) => {
-    modalMain.innerHTML += `<figure>
-                                 <img crossorigin='anonymous' src='${work.imageUrl}' alt='${work.title}'>
-                                 <button><i class='fa-solid fa-trash-can'></i></button>
-                                 <figcaption>éditer</figcaption>
-                                
-                            </figure>`
+
+    let newFigure= document.createElement('figure')
+
+    let newImg= document.createElement('img')
+        let a= document.createAttribute('crossorigin')
+            a.value= ('anonymous')
+            newImg.setAttributeNode(a)
+        let b= document.createAttribute('src')
+            b.value= (`${work.imageUrl}`)
+            newImg.setAttributeNode(b)
+        let c= document.createAttribute('alt')
+            c.value= (`${work.title}`)
+            newImg.setAttributeNode(c)
+
+    let newButton= document.createElement('button')
+
+    let newIcone= document.createElement('i')
+        let d= document.createAttribute('class')
+            d.value= ('fa-solid fa-trash-can')
+            newIcone.setAttributeNode(d)
+
+    let newFigCaption= document.createElement('figcaption')
+    let newContent= document.createTextNode('éditer')
+
+    modalMain.appendChild(newFigure)
+        newFigure.appendChild(newImg)
+        newFigure.appendChild(newButton)
+            newButton.appendChild(newIcone)
+        newFigure.appendChild(newFigCaption)
 }
+
+let controls = document.querySelectorAll('.form-control')
 
 addWorks.addEventListener('click', function() {
     displayModalForm()
+    previewImage.style.display ='none'
+
+    // controle du formulaire d'ajout de work pour activation du bouton submit
+
+    for (let i=0; i<controls.length; i++) {
+        controls[i].onchange = () => {
+                validDisabled()
+            }
+        }
 })
+
+validDisabled=() => {
+
+    if (document.getElementById('imageFile').files[0] != ''
+        && document.querySelector('#titreWork').value != '' 
+        && selectCat.options[selectCat.selectedIndex].value != '' ) {
+            valid.disabled= false
+            valid.style.backgroundColor= '#1D6154' 
+    }else{
+        valid.disabled= true 
+        valid.style.backgroundColor= '#aaa'
+    }
+}
 
 // Suppression d'un work 
 
@@ -171,51 +250,70 @@ displayModalForm=() => {
 }
 
 back.addEventListener('click', () =>{
+    addPic.reset()
+    valid.disabled= true
+    valid.style.backgroundColor= '#aaa'
     listWorks.style.display ='block'
     modalForm.style.display ='none'
+    previewImage.style.display ='none'
+    imageEmpty.style.display ='flex'
 })
 
 removeWork =(id) => {
    if(confirm('Etes-vous sûr de vouloir supprimer ce work') == true){
-    fetch('http://localhost:5678/api/works/' + id, {
-        method: 'DELETE',
-        headers: {
-            'accept' : '*/*',
-            'Authorization' : 'Bearer ' + (localStorage.getItem("token")),
-        }
-    })
-    .then (getWorks())
+        fetch('http://localhost:5678/api/works/' + id, {
+            method: 'DELETE',
+            headers: {
+                        'accept' : '*/*',
+                        'Authorization' : 'Bearer ' + (localStorage.getItem("token")),
+                     }
+        })
+        .then (getWorks())
 }}
 
 
 // Fonction ajout d'un nouveau Work 
+
 addFile = document.querySelector('input[type="file"]')
+
 addImage.addEventListener('click',(e) => {
     e.preventDefault()
     addFile.click()   
 })
+
+// affichage en preview de l'image du work à ajouter
+
+addFile.addEventListener('change', () => {
+    previewImage.src = window.URL.createObjectURL(imageFile.files[0])
+    imageEmpty.style.display ='none'
+    previewImage.style.display ='flex'
+})
+
+// validation du formulaire pour ajouter un work
+
+let selectCat = document.querySelector('#optionCat')
+
 valid.addEventListener('click', (e) =>{
     e.preventDefault()
 
     let data = new FormData()
-    data.append('image', document.getElementById('imageFile').files[0])
-    data.append('titre', document.querySelector('#titreWork').value)
-    let selectCat = document.querySelector('#optionCat')
-    data.append('categorie', selectCat.options[selectCat.selectedIndex].value)
-    
-    addPic.reset()
-    console.log(addFile.value)
+
+        data.append('image', document.getElementById('imageFile').files[0])
+        data.append('title', document.querySelector('#titreWork').value)          
+        data.append('category', selectCat.options[selectCat.selectedIndex].value)
 
     fetch('http://localhost:5678/api/works', {
         method: 'POST',
         headers: {
                     'accept': 'application/json',
-                    'Authorization': 'Bearer ' + (localStorage.getItem("token")),
-                    
+                    'Authorization': 'Bearer ' + (localStorage.getItem("token")),                   
                  },
-        body: JSON.stringify(data),
+        body: data
         })
     .then (res=> (res.json()))
-    
+    .then (() => {
+        getWorks()
+        back.click()
+    })    
     .catch (error => alert(error))          
 })

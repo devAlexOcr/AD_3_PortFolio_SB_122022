@@ -95,24 +95,33 @@
 		  					
 				</div>
 			<div id="modalMainForm">
+
 				<h2>Ajout photo</h2>	
+
 				<form method="post" id='addPic'>
+
 					<div id="imagePost">
-						<label id="photo"><i class="fa-solid fa-image"></i>						
-						<input type="file" id="imageFile">
-						<button id="addImage">+ Ajouter photo</button>
-						<p>jpg. png : 4mo max</p>
+						<img id="previewImage"/>
+						<div id="imageEmpty">
+							<label id="photo"><i class="fa-solid fa-image"></i></label>					
+								<input type="file" id="imageFile" class="form-control">
+							<button id="addImage">+ Ajouter photo</button>
+							<p>jpg. png : 4mo max</p>
+						</div>
 					</div>
+
 					<label for="name">Titre</label>
-					<input type="text" name="name" id="titreWork">
+						<input type="text" name="name" id="titreWork" class="form-control">
 					<label>Catégorie</label>
-					<select id='optionCat'for="catégorie">Catégorie
-						<option value="">Sélectionner une Catégorie</option>
-						
-					</select>	
+						<select id='optionCat'for="catégorie" class="form-control">Catégorie
+							<option value="">Sélectionner une Catégorie</option>
+						</select>	
+				
 			</div>
+			
 			<div class="modalFooter">
-				<button id="valid">Valider</button>
+					<button id="valid" type="submit" disabled>Valider</button>
+				</form>
 			</div>
 		</div>
 		</div>
