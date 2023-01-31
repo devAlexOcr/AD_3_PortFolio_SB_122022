@@ -419,12 +419,13 @@ label{
 	align-items: center;
 }
 .fa-image{
-	font-size: 60px;	
+	font-size: 60px;
+	color: #A7A7A7;
 }
 
 #valid{
 	font-family: 'Syne';
-	background-color: #888;
+	background-color: #A7A7A7;
 	border-radius: 20px;
 	font-size: 20px;
 	color: #fefefe;
@@ -438,12 +439,13 @@ label{
 	justify-content: center;
 	align-items: center;
 	height: 200px;	
-	background-color: #85a6c2;
+	background-color: #E8F1F7;
 }
 #addImage{
-	background-color: #aaa;
-	color: #1D6154;
+	background-color: #CBD6DC;
+	color: #306685;
 	margin: 10px 0 10px 0;
+	border: none;
 }
 input[type="file"]{
 	display: none;

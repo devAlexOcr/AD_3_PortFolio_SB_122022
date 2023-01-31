@@ -59,7 +59,9 @@ displayWork=(work) => {
 
 // Récuperation des catégories
 
-const filtres = document.getElementById('filtres')
+let listCat= new Set([0])
+
+const filtres= document.getElementById('filtres')
 
 fetch ('http://localhost:5678/api/categories')
     .then(res => res.json())
@@ -67,7 +69,8 @@ fetch ('http://localhost:5678/api/categories')
     .then(categories => {        
         for (let categorie of categories) {
             displayCategorie(categorie) 
-            listCat.add(categorie)           
+            listCat.add(categorie)
+            console.log(listCat)           
         }
     })  
     .then(ok => {
