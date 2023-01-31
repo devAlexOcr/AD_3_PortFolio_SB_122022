@@ -1,37 +1,33 @@
 
 // recuperation des Works
 
-let listWork =[]
-
-let listCat = 0;
-
-let filtres = document.getElementById('filtres')
+let listWork= []
 
 getWorks=() =>
    fetch ('http://localhost:5678/api/works')
-    .then(res => res.json())
-   
-    .then( works => { 
-        listWork = works
-        gallery.innerHTML = '' 
-        for (let work of works) {
-            displayWork(work)                                                             
-    }
-    })
-    .then (modalWorks=() => {
-        modalMain.innerHTML = ''
-        for(let work of listWork) {
-            displayWorkModal(work)
-        }
-        let removeBtn = document.querySelectorAll('.fa-trash-can')
-            for(let i=0; i< removeBtn.length; i++){
-                removeBtn[i].addEventListener('click', () =>{
-                removeWork(listWork[i].id)
-                })}
-    })
-    .catch(error => {
-        alert(error)
-    })
+        .then(res => res.json()) 
+        .then( works => { 
+            listWork= works
+            gallery.innerHTML = '' 
+            for (let work of works) {
+                displayWork(work)                                                              
+            }
+        })
+        .then (modalWorks=() => {
+            modalMain.innerHTML = ''
+            for(let work of listWork) {
+                displayWorkModal(work)
+            }
+            let removeBtn = document.querySelectorAll('.fa-trash-can')
+                for(let i=0; i< removeBtn.length; i++){
+                    removeBtn[i].addEventListener('click', () =>{
+                    removeWork(listWork[i].id)
+                    })
+                }
+        })
+        .catch(error => {
+            alert(error)
+        })
 
 getWorks()
 
@@ -43,17 +39,17 @@ displayWork=(work) => {
 
         let newImg= document.createElement('img')
             let a= document.createAttribute("src")
-                a.value= `${work.imageUrl}`
+                a.value= work.imageUrl
                 newImg.setAttributeNode(a)
             let b= document.createAttribute("crossorigin")
                 b.value= 'anonymous'
                 newImg.setAttributeNode(b)
             let c= document.createAttribute("alt")
-                c.value= `${work.title}`
+                c.value= work.title
                 newImg.setAttributeNode(c)
 
         let newFigCaption= document.createElement('figcaption')
-        let newContent= document.createTextNode(`${work.title}`)
+        let newContent= document.createTextNode(work.title)
 
     gallery.appendChild(newFigure)
         newFigure.appendChild(newImg)
@@ -61,26 +57,17 @@ displayWork=(work) => {
             newFigCaption.appendChild(newContent)                 
 }
 
-// Recuperation des Categories
-filtree=(idCat) => {
-    gallery.innerHTML = ''
-    
-    for(let work of listWork){     
-    if (idCat == 0){       
-        displayWork(work)
-    }else {
-        if(idCat == work.categoryId)   
-        displayWork(work)   
-}}
-}
+// Récuperation des catégories
 
-    fetch ('http://localhost:5678/api/categories')
+const filtres = document.getElementById('filtres')
+
+fetch ('http://localhost:5678/api/categories')
     .then(res => res.json())
 
-    .then(categories => {
-        listCat = categories
+    .then(categories => {        
         for (let categorie of categories) {
-            displayCategorie(categorie)            
+            displayCategorie(categorie) 
+            listCat.add(categorie)           
         }
     })  
     .then(ok => {
@@ -95,36 +82,48 @@ filtree=(idCat) => {
                 }
                 allFiltreBtn[i].style.backgroundColor = '#1D6154'
                 allFiltreBtn[i].style.color = 'white'
-            }
-            )
+            })
         }
     })
-
     .catch(error => {
             alert(error)
     })
-    
+
+// Création des bouttons pour filtrer par catégories
+
 displayCategorie=(categorie) => {
 
     let newLi= document.createElement('li')
     let newButton= document.createElement('button')
         let a= document.createAttribute('data-id')
-            a.value=`${categorie.id}`
+            a.value= categorie.id
             newButton.setAttributeNode(a)
-    let newContent= document.createTextNode(`${categorie.name}`)
+    let newContent= document.createTextNode(categorie.name)
     let newOption= document.createElement('option')
         let b=document.createAttribute('value')
-            b.value= `${categorie.id}`
+            b.value= categorie.id
             newOption.setAttributeNode(b)
-    let newContentOption= document.createTextNode(`${categorie.name}`)
+    let newContentOption= document.createTextNode(categorie.name)
 
     filtres.appendChild(newLi)
         newLi.appendChild(newButton)
             newButton.appendChild(newContent)
     
     optionCat.appendChild(newOption)
-        newOption.appendChild(newContentOption)
-    
+        newOption.appendChild(newContentOption)    
+}
+
+// affichage des travaux par catégories
+
+filtree=(idCat) => {
+    gallery.innerHTML = ''    
+    for(let work of listWork){     
+        if (idCat == 0){       
+            displayWork(work)
+        }else {
+            if(idCat == work.categoryId)   
+            displayWork(work)   
+        }}
 }
 
 // affichage des fonctions admin
@@ -146,8 +145,7 @@ if(isLogIn) {
     adminBar.style.display = 'none'
     for( let btnAdmin of logIn){
         btnAdmin.style.display = 'none'
-    }
-    
+    }    
 }
 
 logOutBtn.addEventListener('click', () =>{
@@ -157,33 +155,37 @@ logOutBtn.addEventListener('click', () =>{
 // Modal
 
 const closeBtn = document.querySelectorAll('.close')
+
 for (let i=0; i< closeBtn.length; i++){
-closeBtn[i].addEventListener('click', function() {
-    myModal.style.display = 'none'
-  })
+    closeBtn[i].addEventListener('click', function() {
+        myModal.style.display = 'none'
+    })
 }
 
+// affichage de la modal
+
 myBtnProjet.addEventListener('click', () => {    
-    myModal.style.display = 'block';
+    myModal.style.display = 'block'
     listWorks.style.display ='block'
     modalForm.style.display ='none'
     modalWorks(listWork)
 })
+
+// affichage des travaux dans la modal
 
 modalWorks=(listWork) => {
     modalMain.innerHTML = ''
     for(let work of listWork) {
         displayWorkModal(work)
     }
-    let removeBtn = document.querySelectorAll('.fa-trash-can')
-        for(let i=0; i< removeBtn.length; i++){
-            removeBtn[i].addEventListener('click', () =>{
-            removeWork(listWork[i].id)
-            })}
-        }
+   let removeBtn = document.querySelectorAll('.fa-trash-can')
+      for(let i=0; i< removeBtn.length; i++){
+           removeBtn[i].addEventListener('click', () =>{
+           removeWork(listWork[i].id)
+           })}
+}
 
 displayWorkModal=(work) => {
-
     let newFigure= document.createElement('figure')
 
     let newImg= document.createElement('img')
@@ -191,10 +193,10 @@ displayWorkModal=(work) => {
             a.value= ('anonymous')
             newImg.setAttributeNode(a)
         let b= document.createAttribute('src')
-            b.value= (`${work.imageUrl}`)
+            b.value= (work.imageUrl)
             newImg.setAttributeNode(b)
         let c= document.createAttribute('alt')
-            c.value= (`${work.title}`)
+            c.value= (work.title)
             newImg.setAttributeNode(c)
 
     let newButton= document.createElement('button')
@@ -216,11 +218,13 @@ displayWorkModal=(work) => {
 
 let controls = document.querySelectorAll('.form-control')
 
+// affichage de la modal pour ajout d'un nouveau work
+
 addWorks.addEventListener('click', function() {
     displayModalForm()
     previewImage.style.display ='none'
 
-    // controle du formulaire d'ajout de work pour activation du bouton submit
+// controle du formulaire d'ajout de work pour activation du bouton submit
 
     for (let i=0; i<controls.length; i++) {
         controls[i].onchange = () => {
@@ -230,7 +234,6 @@ addWorks.addEventListener('click', function() {
 })
 
 validDisabled=() => {
-
     if (document.getElementById('imageFile').files[0] != ''
         && document.querySelector('#titreWork').value != '' 
         && selectCat.options[selectCat.selectedIndex].value != '' ) {
@@ -269,7 +272,8 @@ removeWork =(id) => {
                      }
         })
         .then (getWorks())
-}}
+    }
+}
 
 
 // Fonction ajout d'un nouveau Work 
@@ -297,23 +301,22 @@ valid.addEventListener('click', (e) =>{
     e.preventDefault()
 
     let data = new FormData()
-
         data.append('image', document.getElementById('imageFile').files[0])
         data.append('title', document.querySelector('#titreWork').value)          
         data.append('category', selectCat.options[selectCat.selectedIndex].value)
 
-    fetch('http://localhost:5678/api/works', {
-        method: 'POST',
-        headers: {
+            fetch('http://localhost:5678/api/works', {
+                method: 'POST',
+                headers: {
                     'accept': 'application/json',
                     'Authorization': 'Bearer ' + (localStorage.getItem("token")),                   
-                 },
-        body: data
-        })
-    .then (res=> (res.json()))
-    .then (() => {
-        getWorks()
-        back.click()
-    })    
-    .catch (error => alert(error))          
+                },
+                body: data
+            })
+            .then (res=> (res.json()))
+            .then (() => {
+                getWorks()
+                back.click()
+            })    
+            .catch (error => alert(error))
 })
