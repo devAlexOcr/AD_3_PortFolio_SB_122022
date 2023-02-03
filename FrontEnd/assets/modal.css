@@ -1,0 +1,169 @@
+.modal {
+	margin: 0;
+	display: none; 
+	position: fixed; 
+	z-index: 1; 
+	left: 0;
+	top: 0;
+	width: 100%;
+	min-height: 100%;
+	background-color: rgba(0,0,0,0.4); 
+  }
+
+.modalHeader {
+	width: 90%;
+	height: 5%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 2% auto;
+}
+#back{
+	font-size: 28px;
+	color: #aaa;
+	border: none;
+	background: none;
+}
+.close {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	color: #aaa;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+#myModal h2{
+	text-align: center;
+	margin: 20px;
+}
+
+#modalMain {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	width: 73%;
+	height: 57%;
+	margin: auto;
+	gap: 10px;
+}
+
+#modalMain figure{
+	width: 18%;
+	position: relative;
+}
+#modalMain figure img{
+	width: 100%;
+	object-fit: cover;
+}
+
+#modalMain button{
+	background-color: #000;
+	border: none;
+	border-radius: 3px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	
+}
+#modalMain button i{
+	color: white;
+	padding: 4px;
+	font-size: 13px;
+}
+
+.modalFooter  {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-top: 2px solid #aaa;
+	margin: 25px auto;
+	width: 80%;
+}
+
+.modal-content, #modalForm {
+	width: 40%;
+	min-height: 300px;
+	margin: 2% 30%; 
+	background-color: #fefefe;
+	border: 1px solid #888;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+#modalMainForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 75%;
+	width: 90%;
+}
+
+#modalMainForm form{
+	display: flex;
+    flex-direction: column;
+    font-family: 'Work Sans';
+    font-size: 14px;
+    height: 90%;
+	width: 90%;
+	margin: auto;
+}
+
+
+#modalMainForm input{
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09)
+}
+#modalMainForm label{
+	margin: 2em 0 1em 0;
+	text-align: left;
+}
+#photo{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.fa-image{
+	font-size: 60px;
+	color: #A7A7A7;
+}
+
+#valid{
+	font-family: 'Syne';
+	background-color: #A7A7A7;
+	border-radius: 20px;
+	font-size: 20px;
+	color: #fefefe;
+	margin: 20px;
+	width: 110px;
+}
+
+#imagePost {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 200px;	
+	background-color: #E8F1F7;
+}
+#addImage{
+	background-color: #CBD6DC;
+	color: #306685;
+	margin: 10px 0 10px 0;
+	border: none;
+}
+input[type="file"]{
+	display: none;
+}
+
+#previewImage{
+	height:200px;
+}
+
+#imageEmpty{
+	flex-direction: column;
+}

@@ -1,13 +1,10 @@
 let form = document.querySelector("form")
 
-
-
 form.addEventListener('submit', (e) => {
     let user = {
         email: document.getElementById('email').value,
         password: document.getElementById('pass').value
     }
-    console.log(user)
     e.preventDefault()
     fetch ('http://localhost:5678/api/users/login', {
         method: 'POST',
@@ -35,7 +32,7 @@ form.addEventListener('submit', (e) => {
            localStorage.setItem("token",status.token)
            location.href="./index.html"
         }else{
-        alert(error)
+            alert(error)
         }
     })   
  })

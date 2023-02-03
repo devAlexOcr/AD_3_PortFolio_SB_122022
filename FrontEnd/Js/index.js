@@ -1,9 +1,8 @@
-
 // recuperation des Works
 
 let listWork= []
 
-getWorks=() =>
+const getWorks=() =>
    fetch ('http://localhost:5678/api/works')
         .then(res => res.json()) 
         .then( works => { 
@@ -13,7 +12,7 @@ getWorks=() =>
                 displayWork(work)                                                              
             }
         })
-        .then (modalWorks=() => {
+        .then (modalWorks => {
             modalMain.innerHTML = ''
             for(let work of listWork) {
                 displayWorkModal(work)
@@ -34,7 +33,7 @@ getWorks()
 
 const gallery = document.getElementById('gallery') 
 
-displayWork=(work) => { 
+const displayWork=(work) => { 
         let newFigure= document.createElement('figure')
 
         let newImg= document.createElement('img')
@@ -63,29 +62,46 @@ let listCat= new Set([0])
 
 const filtres= document.getElementById('filtres')
 
+// affichage des travaux par catégories
+
+const filtree=(idCat) => {
+    gallery.innerHTML = ''    
+    for(let work of listWork){     
+        if (idCat == 0){       
+            displayWork(work)
+        }else {
+            if(idCat == work.categoryId)   
+            displayWork(work)   
+        }}
+}
+
 fetch ('http://localhost:5678/api/categories')
     .then(res => res.json())
 
     .then(categories => {        
         for (let categorie of categories) {
             displayCategorie(categorie) 
-            listCat.add(categorie)
-            console.log(listCat)           
+            listCat.add(categorie)             
         }
     })  
-    .then(ok => {
+    .then(() => {
         let allFiltreBtn = filtres.getElementsByTagName('button')
+
         for (let i=0; i< allFiltreBtn.length; i++) {
             let idCat = allFiltreBtn[i].getAttribute('data-id')
+
             allFiltreBtn[i].addEventListener('click', () => {          
                 filtree(idCat)
+
                 for( let BtnFiltre of allFiltreBtn){
-                    BtnFiltre.style.backgroundColor = 'white'
-                    BtnFiltre.style.color = '#1D6154'
+                    BtnFiltre.classList.add('btn_inactif')
                 }
-                allFiltreBtn[i].style.backgroundColor = '#1D6154'
-                allFiltreBtn[i].style.color = 'white'
+
+                allFiltreBtn[i].classList.remove('btn_inactif')
+                allFiltreBtn[i].classList.add('btn_actif')
             })
+            
+            allFiltreBtn[0].click()
         }
     })
     .catch(error => {
@@ -94,7 +110,7 @@ fetch ('http://localhost:5678/api/categories')
 
 // Création des bouttons pour filtrer par catégories
 
-displayCategorie=(categorie) => {
+const displayCategorie=(categorie) => {
 
     let newLi= document.createElement('li')
     let newButton= document.createElement('button')
@@ -116,18 +132,7 @@ displayCategorie=(categorie) => {
         newOption.appendChild(newContentOption)    
 }
 
-// affichage des travaux par catégories
 
-filtree=(idCat) => {
-    gallery.innerHTML = ''    
-    for(let work of listWork){     
-        if (idCat == 0){       
-            displayWork(work)
-        }else {
-            if(idCat == work.categoryId)   
-            displayWork(work)   
-        }}
-}
 
 // affichage des fonctions admin
 
@@ -151,13 +156,14 @@ if(isLogIn) {
     }    
 }
 
+
+// MODAL 
+
+
 logOutBtn.addEventListener('click', () =>{
     localStorage.removeItem('token')
 })
-
-// Modal
-
-const closeBtn = document.querySelectorAll('.close')
+let closeBtn = document.querySelectorAll('.close')
 
 for (let i=0; i< closeBtn.length; i++){
     closeBtn[i].addEventListener('click', function() {
@@ -176,7 +182,7 @@ myBtnProjet.addEventListener('click', () => {
 
 // affichage des travaux dans la modal
 
-modalWorks=(listWork) => {
+let modalWorks=(listWork) => {
     modalMain.innerHTML = ''
     for(let work of listWork) {
         displayWorkModal(work)
@@ -188,7 +194,7 @@ modalWorks=(listWork) => {
            })}
 }
 
-displayWorkModal=(work) => {
+let displayWorkModal=(work) => {
     let newFigure= document.createElement('figure')
 
     let newImg= document.createElement('img')
@@ -236,8 +242,8 @@ addWorks.addEventListener('click', function() {
         }
 })
 
-validDisabled=() => {
-    if (document.getElementById('imageFile').files[0] != ''
+let validDisabled=() => {
+    if (document.getElementById('imageFile').files.length != '0'
         && document.querySelector('#titreWork').value != '' 
         && selectCat.options[selectCat.selectedIndex].value != '' ) {
             valid.disabled= false
@@ -250,7 +256,7 @@ validDisabled=() => {
 
 // Suppression d'un work 
 
-displayModalForm=() => {
+let displayModalForm=() => {
     listWorks.style.display ='none'
     modalForm.style.display ='flex'
 }
@@ -265,7 +271,7 @@ back.addEventListener('click', () =>{
     imageEmpty.style.display ='flex'
 })
 
-removeWork =(id) => {
+let removeWork =(id) => {
    if(confirm('Etes-vous sûr de vouloir supprimer ce work') == true){
         fetch('http://localhost:5678/api/works/' + id, {
             method: 'DELETE',
